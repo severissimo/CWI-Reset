@@ -25,7 +25,7 @@ Qual o valor do seu saldo? 🤔
 
 */
 
-console.log("Exercício :")
+console.log("Exercício 1:")
 nomeDoBeltrano = "x"
 nomeDoFulano = "y"
 mesmoNome = (nomeDoFulano == nomeDoBeltrano)
@@ -37,7 +37,7 @@ console.log("\n")
 console.log("\n")
 
 
-console.log("Exercício :")
+console.log("Exercício 2:")
 idade = 16
 maiorDeIdade = (idade >= 18)
 if (maiorDeIdade == false){
