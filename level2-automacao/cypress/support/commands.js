@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { HomePage } from "../pages/home-page";
 import { ProductPage } from "../pages/product-page";
-import { SwagPage } from "../pages/swag-page";
+import  SwagPage  from "../pages/swag-page";
 
 const homePage = new HomePage()
 const productPage = new ProductPage()
@@ -31,6 +31,22 @@ Cypress.Commands.add('pegarSenha', () => {
 
 Cypress.Commands.add('pegarErro', () => {
     swagPage.pegarErro()
+})
+
+Cypress.Commands.add('loginStandardUser', () => {
+    swagPage.loginStandardUser()
+})
+
+Cypress.Commands.add('loginProblemUser', () => {
+    swagPage.loginProblemUser()
+})
+
+Cypress.Commands.add('loginLockedOutUser', () => {
+    swagPage.loginLockedOutUser()
+})
+
+Cypress.Commands.add('loginPerformanceGlitchUser', () => {
+    swagPage.loginPerformanceGlitchUser()
 })
 
 
