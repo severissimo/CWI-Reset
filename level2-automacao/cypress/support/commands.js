@@ -1,15 +1,36 @@
 /// <reference types="cypress"/>
 import { HomePage } from "../pages/home-page";
 import { ProductPage } from "../pages/product-page";
-
+import { SwagPage } from "../pages/swag-page";
 
 const homePage = new HomePage()
 const productPage = new ProductPage()
+const swagPage = new SwagPage()
 
 Cypress.Commands.add('gerarCarrinhoComUmProduto', () => {
     homePage.acessar()
     homePage.detalharPrimeiroProduto()
     productPage.comprarAgora()    
+})
+
+Cypress.Commands.add('acessarSwag', () => {
+    swagPage.acessar()
+})
+
+Cypress.Commands.add('clicarLogin', () => {
+    swagPage.clicarLogin()
+})
+
+Cypress.Commands.add('pegarUsername', () => {
+    swagPage.pegarUsername()
+})
+
+Cypress.Commands.add('pegarSenha', () => {
+    swagPage.pegarSenha()
+})
+
+Cypress.Commands.add('pegarErro', () => {
+    swagPage.pegarErro()
 })
 
 
