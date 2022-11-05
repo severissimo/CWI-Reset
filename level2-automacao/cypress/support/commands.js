@@ -1,3 +1,18 @@
+/// <reference types="cypress"/>
+import { HomePage } from "../pages/home-page";
+import { ProductPage } from "../pages/product-page";
+
+
+const homePage = new HomePage()
+const productPage = new ProductPage()
+
+Cypress.Commands.add('gerarCarrinhoComUmProduto', () => {
+    homePage.acessar()
+    homePage.detalharPrimeiroProduto()
+    productPage.comprarAgora()    
+})
+
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
