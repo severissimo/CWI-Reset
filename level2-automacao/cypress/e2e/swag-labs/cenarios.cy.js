@@ -1,16 +1,16 @@
 /// <reference types="cypress" />
 import SwagPage from "../../pages/swag-page.js";
-import SwagProducts from "../../pages/swag-products.cy.js";
+import SwagProducts from "../../pages/swag-products.js";
 import SwagCart from "../../pages/swag-cart.js";
-import SwagInfoPage from "../../pages/swag-infopage.js";
-import SwagCheckout from "../../pages/swag-checkout.js";
+import SwagCheckoutUm from "../../pages/swag-checkoutum.js";
+import SwagCheckoutDois from "../../pages/swag-checkoutdois.js";
 import SwagOrderCompleted from "../../pages/swag-ordercompleted.js";
 
 const swagPage = new SwagPage()
 const swagProducts = new SwagProducts()
 const swagCart = new SwagCart()
-const swagInfoPage = new SwagInfoPage()
-const swagCheckout = new SwagCheckout()
+const swagCheckoutUm = new SwagCheckoutUm()
+const swagCheckoutDois = new SwagCheckoutDois()
 const swagOrderCompleted = new SwagOrderCompleted()
 
 
@@ -18,11 +18,8 @@ describe('Swag Labs', () => {
 
     beforeEach (() => {
         swagPage.acessar()
+        //
     })
-
-    it('Deve acessar o swaglabs com sucesso', () => {
-        cy.url().should('include', 'saucedemo')
-       })
 
     it('Deve tentar acessar sem Username', () => {
         swagPage.clicarLogin()
@@ -31,71 +28,177 @@ describe('Swag Labs', () => {
 
     it('Deve tentar login sem senha', () => {
         swagPage.loginStandardUser('standard_user','{enter}')
-        cy.pegarErro().should('have.text','Epic sadface: Password is required')
+        swagPage.pegarErro().should('have.text','Epic sadface: Password is required')
     })
 
-    it('Deve tentar login sem sucesso', () => {
-        swagPage.loginStandardUser('standard_user','a')
-        cy.pegarErro().should('have.text','Epic sadface: Username and password do not match any user in this service')
+    it('Deve exibir mensagem ao logar sem informar usuário nem senha', () => {
+        swagPage.loginStandardUser('{enter}','{enter}')
+        swagPage.pegarErro().should('have.text','Epic sadface: Username is required')
     })
 
-    it('Deve fazer login com Standard User', () => {
-        swagPage.loginStandardUser('standard_user','secret_sauce')
-        cy.url().should('include', 'saucedemo.com/inventory.html')
-        cy.get('.title').should('have.text', 'Products')
-        //cy.pegarErro().should('have.text','Epic sadface: Username and password do not match any user in this service')
+    it('Deve exibir mensagem ao logar com usuário bloqueado', () => {
+        swagPage.loginLockedOutUser()
+        swagPage.pegarErro().should('have.text','Epic sadface: Sorry, this user has been locked out.')
+    })
+
+    //it('Deve exibir mensagem ao acessar página de produtos sem estar autenticado', () => {
+    //    cy.visit(swagProducts.url)
+    //})
+
+    it('Deve logar com sucesso', () => {
+        swagPage.loginStandardUser()
+        swagProducts.verificarPagina()
     })
     
-    it('Deve fazer login com Problem User', () => {
-        cy.loginProblemUser()
-        //cy.url().should('include', 'saucedemo.com/inventory')
-        //cy.get('.title').should('have.text', 'Products')
-        //cy.pegarErro().should('have.text','Epic sadface: Username and password do not match any user in this service')
+    it('Deve exibir a página de login ao selecionar a opção de logout', () => {
+        swagPage.loginStandardUser()
+        swagProducts.verificarPagina()
+        swagProducts.logout()
+        swagPage.verificarPagina()
     })
     
-    it('Deve fazer login com LockedOut User', () => {
-        cy.loginLockedOutUser()
-        cy.pegarErro().should('have.text','Epic sadface: Sorry, this user has been locked out.')
-    })
-
-    it('Deve fazer login com PerformanceGlitch User', () => {
-        cy.loginPerformanceGlitchUser()
-        //cy.pegarErro().should('have.text','Epic sadface: Sorry, this user has been locked out.')
-    })
-
-    it('Deve adicionar Jaqueta ao carrinho', () => {
-        cy.loginStandardUser()
-        cy.get('#item_5_title_link > .inventory_item_name').should('have.text','Sauce Labs Fleece Jacket')
-        cy.get('#item_5_title_link > .inventory_item_name').click()
-        cy.get('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click()
-        //cy.get('[data-test="back-to-products"]').click()
-        //cy.get('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click()
-        cy.get('.shopping_cart_link').click()
-        cy.get('.cart_item').should('have.length', '1')
-        cy.get('#item_5_title_link > .inventory_item_name').should('have.text','Sauce Labs Fleece Jacket')
-
+    it('Deve exibir mensagem ao acessar página de produtos após ter feito logout', () => {
+        swagPage.loginStandardUser()
+        swagProducts.verificarPagina()
+        swagProducts.logout()
+        swagPage.verificarPagina()
     })
     
-    it('Deve adicionar 2 itens ao carrinho', () => {
-        cy.loginStandardUser()
-        cy.get('#item_5_title_link > .inventory_item_name').should('have.text','Sauce Labs Fleece Jacket')
-        cy.get('#item_5_title_link > .inventory_item_name').click()
-        cy.get('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click()
-        cy.get('[data-test="back-to-products"]').click()
-        cy.get('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click()
-        cy.get('.shopping_cart_link').click()
-        cy.get('.cart_item').should('have.length', '2')
-        cy.get('#item_5_title_link > .inventory_item_name').should('have.text','Sauce Labs Fleece Jacket')
-
+    it('Deve exibir carrinho vazio ao acessar sem ter adicionado itens no carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.verificarPagina()
+        swagProducts.visualizarCarrinho()
+        swagCart.verificarCarrinhoVazio()
+    })     
+    
+    it('Deve exibir produto adicionado no carrinho ao acessar o carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()        
+        swagCart.verificarCarrinhoUmItem()        
+    })
+    
+    it('Deve exibir produtos adicionados no carrinho ao acessar o carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.addCamisaCarrinho()
+        swagProducts.visualizarCarrinho() 
+        swagCart.verificarCarrinhoDoisItem()      
     })
 
-    it.only('Finaliza um Pedido', () => {
+    it('Deve exibir no icone de carrinho quantos produtos foram adicionados no carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.verificarCarrinhoUmProduto()  
+    })
+    
+    it('Deve exibir no icone de carrinho quantos produtos restaram ao remover produto do carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.removerJaquetaCarrinho()
+        swagProducts.verificarCarrinhoSemProduto()  
+    })
+    
+    it('Deve exibir no icone de carrinho quantos produtos foram adicionados no carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.addCamisaCarrinho()
+        swagProducts.verificarCarrinhoDoisProdutos()  
+    })
+    
+    it('Deve exibir no icone de carrinho quantos produtos restaram ao remover produto do carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.addCamisaCarrinho()
+        swagProducts.removerJaquetaCarrinho()
+        swagProducts.verificarCarrinhoUmProduto()  
+    })
+
+    it('Deve remover produto do a partir da página de carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho() 
+        swagCart.removerJaqueta()
+        swagCart.verificarCarrinhoVazio()      
+    })
+    
+    it('Deve remover produto de dois a partir da página de carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.addCamisaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.removerJaqueta() 
+        swagCart.verificarCarrinhoUmItem()      
+    })
+
+    it('Deve exibir página do checkout a partir da página de carrinho', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.verificarPagina()
+    })
+    
+    it('Deve exibir mensagem ao prosseguir sem preencher identificação', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.verificarPagina()
+        swagCheckoutUm.adicionarInfos('{backspace}','{backspace}','{backspace}')
+        swagCheckoutUm.pegarErro().should('have.text', swagCheckoutUm.msgErrorFirstName)
+    })
+    
+    it('Deve exibir mensagem ao prosseguir sem preencher primeiro nome', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.verificarPagina()
+        swagCheckoutUm.adicionarInfos('{backspace}','qwe','012345')
+        swagCheckoutUm.pegarErro().should('have.text', swagCheckoutUm.msgErrorFirstName)
+    })
+    
+    it('Deve exibir mensagem ao prosseguir sem preencher primeiro nome', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.verificarPagina()
+        swagCheckoutUm.adicionarInfos('qwe','{backspace}','012345')
+        swagCheckoutUm.pegarErro().should('have.text', swagCheckoutUm.msgErrorLastName)
+    })
+    
+    it('Deve exibir mensagem ao prosseguir sem preencher cep', () => {
+        swagPage.loginStandardUser()
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.verificarPagina()
+        swagCheckoutUm.adicionarInfos('qwe','qwe','{backspace}')
+        swagCheckoutUm.pegarErro().should('have.text', swagCheckoutUm.msgErrorZip)
+    })
+
+    it('Deve exibir página de revisão da compra ao prosseguir com identificação válida', () => {
         swagPage.loginStandardUser('standard_user','secret_sauce')
         swagProducts.addJaquetaCarrinho()
         swagProducts.visualizarCarrinho()
         swagCart.checkout()
-        swagInfoPage.adicionarInfos()
-        swagCheckout.finalizarCompra()
+        swagCheckoutUm.adicionarInfos('qwe','qwe','012345')
+        swagCheckoutDois.verificarPagina()
+    })
+
+    it('Deve exibir página de compra finalizada ao finalizar compra', () => {
+        swagPage.loginStandardUser('standard_user','secret_sauce')
+        swagProducts.addJaquetaCarrinho()
+        swagProducts.visualizarCarrinho()
+        swagCart.checkout()
+        swagCheckoutUm.adicionarInfos('qwe','qwe','012345')
+        swagCheckoutDois.finalizarCompra()
+        swagOrderCompleted.verificarPagina
         swagOrderCompleted.pedidoFeito()
     })
+    
+
+    
 })

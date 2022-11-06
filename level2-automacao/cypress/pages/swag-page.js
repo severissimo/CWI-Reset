@@ -1,9 +1,10 @@
 export default class SwagPage {
-    url = 'https://www.saucedemo.com'
+    url = 'https://www.saucedemo.com/'
     btnLogin = '[data-test="login-button"]'
     usernameInput ='[data-test="username"]'
     senhaInput = '[data-test="password"]'
     error = '[data-test="error"]'
+    standardUser = 'standard_user'
     senha = 'secret_sauce'
 
     acessar() {
@@ -11,47 +12,55 @@ export default class SwagPage {
     }
 
     loginStandardUser(username, password){
-        cy.pegarUsername().type(username)
-        cy.pegarSenha().type(password)
-        cy.clicarLogin()
+        if (username == undefined && password == undefined){
+            this.pegarUsername().type(this.standardUser)
+            this.pegarSenha().type(this.senha)
+            this.clicarLogin()
+
+        } else {
+                this.pegarUsername().type(username)
+                this.pegarSenha().type(password)
+                this.clicarLogin()
+        }
     }
     
     
-    loginProblemUser(username, password){
-        cy.pegarUsername().type(username)
-        cy.pegarSenha().type(password)
-        cy.clicarLogin()
+    loginProblemUser(){
+        this.pegarUsername().type('problem_user')
+        this.pegarSenha().type(this.senha)
+        this.clicarLogin()
     }
     
     loginLockedOutUser(){
-        cy.pegarUsername().type('locked_out_user')
-        cy.pegarSenha().type(this.senha)
-        cy.clicarLogin()
+        this.pegarUsername().type('locked_out_user')
+        this.pegarSenha().type(this.senha)
+        this.clicarLogin()
     }
     
     loginPerformanceGlitchUser(){
-        cy.pegarUsername().type('performance_glitch_user')
-        cy.pegarSenha().type(this.senha)
-        cy.clicarLogin()
+        this.pegarUsername().type('performance_glitch_user')
+        this.pegarSenha().type(this.senha)
+        this.clicarLogin()
     }
 
     clicarLogin(){
         cy.get(this.btnLogin).click()
     }
 
-    pegarUsername(){
-        cy.get(this.usernameInput)
-        return this
+    pegarUsername(){        
+        return cy.get(this.usernameInput)
     }
 
-    pegarSenha(){
-        cy.get(this.senhaInput)
-        return this
+    pegarSenha(){        
+        return cy.get(this.senhaInput)
     }
 
-    pegarErro(){
-        cy.get(this.error)
-        return this.error
+    pegarErro(){        
+        return cy.get(this.error)
+    }
+
+    verificarPagina(){
+        cy.url().should('equals', this.url)
     }
 
 
