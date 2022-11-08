@@ -1,0 +1,25 @@
+{
+  "name": "desafio-autoweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^13.1.0"
+  },
+  "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "cypress": "^10.11.0",
+    "esbuild": "^0.15.13"
+  },
+  "cypress-cucumber-preprocessor": {
+
+    "stepDefinitions": "cypress/support/step_definitions/**/*.{js,ts}"
+    
+  }
+}
