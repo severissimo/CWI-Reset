@@ -20,5 +20,5 @@
 - Objetivos:
     1. Page Objects: Adicionar Atributos e Implementar Funções :heavy_check_mark:
     2. Page Objects: Testar Funções :heavy_check_mark:
-    3. BDD: Implementar Steps
-    4. BDD: Testar Feature
+    3. BDD: Implementar Steps :heavy_check_mark:
+    4. BDD: Testar Feature :heavy_check_mark:
