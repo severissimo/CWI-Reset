@@ -18,7 +18,7 @@
 
 ## Implementar Cenário
 - Objetivos:
-    1. Page Objects: Adicionar Atributos e Implementar Funções
-    2. Page Objects: Testar Funções
+    1. Page Objects: Adicionar Atributos e Implementar Funções :heavy_check_mark:
+    2. Page Objects: Testar Funções :heavy_check_mark:
     3. BDD: Implementar Steps
     4. BDD: Testar Feature

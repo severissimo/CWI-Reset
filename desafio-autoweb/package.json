@@ -14,12 +14,11 @@
   },
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.1.5",
+    "@faker-js/faker": "^7.6.0",
     "cypress": "^10.11.0",
     "esbuild": "^0.15.13"
   },
   "cypress-cucumber-preprocessor": {
-
     "stepDefinitions": "cypress/support/step_definitions/**/*.{js,ts}"
-    
   }
 }

@@ -20,8 +20,6 @@ module.exports = defineConfig({
   e2e: {
     specPattern: ['cypress/e2e/**/*.cy.js', 'cypress/e2e/**/*.feature'],
     setupNodeEvents,
-    defaultCommandTimeout: 5000,
-    retries: { openMode: 2 },
     baseUrl: 'https://magento.softwaretestingboard.com/'
   },
 });  
