@@ -1,9 +1,10 @@
 # Planejamento de Teste
+commits disponíveis em: https://github.com/severissimo/cwi-reset/tree/main/desafio-autoweb
 
 ## Estratégia
-1. Fazer um Teste Esploratório para se Familiarizar com a Plataforma :heavy_check_mark:
+1. Fazer um Teste Exploratório para se Familiarizar com a Plataforma :heavy_check_mark:
 2. Definir Escopo do Cenário de Teste :heavy_check_mark:
-3. Implementar Cenário
+3. Implementar Cenário :heavy_check_mark:
 
 ## Teste Exploratório:
 - Objetivos:

@@ -16,7 +16,8 @@ describe('Teste que Falha', () => {
   it('Faz algo', () => {
     homePage.visitar()
     homePage.criarConta()
-    creationPage.preencherDados()    
+    // a função abaixo tenta gerar um password usando uma RegExp, mas a sintaxe não está implementada completamente.
+    creationPage.preencherDados2()    
     creationPage.botaoCriarConta().click()
     myAccountPage.botaoEditarEndereco().click()
     newAddressPage.preencherDados()
