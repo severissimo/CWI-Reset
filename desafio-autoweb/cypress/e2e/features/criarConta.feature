@@ -1,6 +1,6 @@
 Feature: Criar Conta
 
     Scenario: Criar Conta
-        Given que eu acesso o site
-        When eu crio uma Conta
-        Then eu vejo a tela de 'My Account'
+        Given que eu crio uma Conta
+        When eu adiciono um Endereço
+        Then eu vejo o Endereço na tela 'My Account'
