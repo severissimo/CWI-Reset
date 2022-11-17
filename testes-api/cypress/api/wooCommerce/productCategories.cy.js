@@ -12,16 +12,16 @@ describe ('Product Categories', () => {
         })
     })
 
-    it('Lista todas as categorias - Contrato', () => {
+    it.only('Lista todas as categorias - Contrato', () => {        
         cy.getProductCategoriesWooCommerce().should((listarCategoriasResponse) => {
-            productCategoriesSchema.validateAsync(listarCategoriasResponse.body)
+            for(let i = 0; i < listarCategoriasResponse.body.length; i++){
+                return productCategoriesSchema.validateAsync(listarCategoriasResponse.body[i])
+            }            
         })
     })
 
-    it.only('Cadastro de categorias - Aceitação', () => {
-        cy.postProductCategoriesWooCommerce().should((postCategoriesResponse) => {
-            expect(postCategoriesResponse.status).to.be.eq(201)
-        })
+    it('Cadastro de categorias - Aceitação', () => {
+        cy.postProductCategoriesWooCommerce()
 
     })
 
