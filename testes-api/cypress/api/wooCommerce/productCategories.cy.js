@@ -1,15 +1,14 @@
 /// <reference types="cypress">
 import token from '../../fixtures/token.json'
+import productCategoriesSchema from '../../contratos/categories'
 
-describe ('Teste API', () => {
+
+describe ('Product Categories', () => {
     it ('Listar todas as categorias', () => {
-        cy.request({
-            method: 'GET',
-            url: Cypress.config('baseUrl') + '/products/categories',
-            headers: {
-                Authorization: 'token.token'
-            }
-
+        //Transformar CyRequest em commando
+        cy.getProductCategoriesWooCommerce().should((listarCategoriasResponse) => {
+            expect(listarCategoriasResponse.status).to.be.eq(200)
+            expect(listarCategoriasResponse.body).to.have.length.greaterThan(0)
         })
     })
 

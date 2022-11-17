@@ -6,6 +6,6 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'https://cena.reset.cwi.com.br/index.php/wp-json/wc/v3',
-    specPattern: 'cypress/api/**/*.{js,jsx,ts,tsx}'
+    specPattern: 'cypress/api/**/*.{js,jsx,ts,tsx}',
   }
 })
