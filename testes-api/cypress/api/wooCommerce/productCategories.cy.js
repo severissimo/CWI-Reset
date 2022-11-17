@@ -1,6 +1,6 @@
 /// <reference types="cypress">
-import token from '../../fixtures/token.json'
 import productCategoriesSchema from '../../contratos/categories'
+import { faker } from '@faker-js/faker'
 
 
 describe ('Product Categories', () => {
@@ -16,6 +16,13 @@ describe ('Product Categories', () => {
         cy.getProductCategoriesWooCommerce().should((listarCategoriasResponse) => {
             productCategoriesSchema.validateAsync(listarCategoriasResponse.body)
         })
+    })
+
+    it.only('Cadastro de categorias - Aceitação', () => {
+        cy.postProductCategoriesWooCommerce().should((postCategoriesResponse) => {
+            expect(postCategoriesResponse.status).to.be.eq(201)
+        })
+
     })
 
 })
