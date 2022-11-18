@@ -31,7 +31,8 @@ describe ('Product Categories', () => {
 
     it('POST - Cadastro de categorias - Contrato', () => {
         const categoryName = faker.commerce.department() + faker.commerce.department();
-        cy.postProductCategoriesWooCommerce(categoryName,categoryObject.src).should((postCategoriesResponse) => {
+        cy.postProductCategoriesWooCommerce(categoryName,categoryObject.src)
+        .should((postCategoriesResponse) => {
             return productCategoriesSchema.validateAsync(postCategoriesResponse.body)
         }).should((postCategoriesResponse) => {
             expect(postCategoriesResponse.status).to.be.eq(201)

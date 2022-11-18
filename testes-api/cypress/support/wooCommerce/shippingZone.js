@@ -48,3 +48,7 @@ Cypress.Commands.add('getOneShippingZonesWooCommerce', (id) => {
         headers: { Authorization: token.token }
     })
 })
+
+Cypress.Commands.add('validarArrayResponse', (shippingZoneSchema, responsebody) => {
+    return shippingZoneSchema.validateAsync(responsebody)
+})
