@@ -1,12 +1,12 @@
 /// <reference types="cypress">
-import shippingZoneObject from '../../fixtures/shippingZoneObject.json'
+import shippingZoneFixture from '../../fixtures/shippingZoneFixture'
 import shippingZoneSchema from '../../contratos/shippingZone.contract'
 import { faker } from '@faker-js/faker'
 
 
 describe ('Shipping Zone', () => {
 
-    it.only('Listar de Shipping Zones - Aceitação', () => {
+    it('Listar de Shipping Zones - Aceitação', () => {
         cy.getAllShippingZonesWooCommerce()
         .should((response) => {
             expect(response.status).equals(200)
@@ -15,14 +15,13 @@ describe ('Shipping Zone', () => {
                 cy.validarArrayResponse(shippingZoneSchema,response.body[i]);
             }
         })
-    })   
-    
+    })       
 
     it('Cadastro de Shipping Zone - Aceitação', () => {
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .should((response) => {
             expect(response.status).equals(201)
-            expect(response.body.name).equals(shippingZoneObject.name)
+            expect(response.body.name).equals(shippingZoneFixture.name)
         }).then((response) => {
             cy.deleteShippingZoneWooCommerce(response.body.id)
             .then((response) => {
@@ -32,10 +31,10 @@ describe ('Shipping Zone', () => {
     })
     
     it('Cadastro de Shipping Zone - Contrato', () => {
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .should((response) => {
             expect(response.status).equals(201)
-            expect(response.body.name).equals(shippingZoneObject.name)
+            expect(response.body.name).equals(shippingZoneFixture.name)
             return shippingZoneSchema.validateAsync(response.body)
         }).then((response) => {
             cy.deleteShippingZoneWooCommerce(response.body.id)
@@ -43,12 +42,12 @@ describe ('Shipping Zone', () => {
     })
     
     it('Update de Shipping Zone - Aceitação', () => {
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .then((response) => {
-            cy.updateShippingZoneWooCommerce(response.body.id, shippingZoneObject.updatedName)
+            cy.updateShippingZoneWooCommerce(response.body.id, shippingZoneFixture.updatedName)
             .should((response) => {
-                expect(response.status).equals(shippingZoneObject.statusok)
-                expect(response.body.name).equals(shippingZoneObject.updatedName) 
+                expect(response.status).equals(shippingZoneFixture.statusok)
+                expect(response.body.name).equals(shippingZoneFixture.updatedName) 
             })
         }).then((response) => {
             cy.deleteShippingZoneWooCommerce(response.body.id)
@@ -57,12 +56,12 @@ describe ('Shipping Zone', () => {
     })
 
     it('Update de Shipping Zone - Contrato', () => {
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .then((response) => {
-            cy.updateShippingZoneWooCommerce(response.body.id, shippingZoneObject.updatedName)
+            cy.updateShippingZoneWooCommerce(response.body.id, shippingZoneFixture.updatedName)
             .should((response) => {
-                expect(response.status).equals(shippingZoneObject.statusok)
-                expect(response.body.name).equals(shippingZoneObject.updatedName) 
+                expect(response.status).equals(shippingZoneFixture.statusok)
+                expect(response.body.name).equals(shippingZoneFixture.updatedName) 
                 return shippingZoneSchema.validateAsync(response.body)
             })
         }).then((response) => {
@@ -72,7 +71,7 @@ describe ('Shipping Zone', () => {
     })
     
     it('Deletar Shipping Zone - Aceitação', () => {        
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .then((response) => {           
             cy.deleteShippingZoneWooCommerce(response.body.id)
             .then((response) => {
@@ -82,7 +81,7 @@ describe ('Shipping Zone', () => {
     })
     
     it('Deletar Shipping Zone - Contrato', () => {        
-        cy.postShippingZoneWooCommerce(shippingZoneObject.name)
+        cy.postShippingZoneWooCommerce(shippingZoneFixture.name)
         .then((response) => {         
             cy.deleteShippingZoneWooCommerce(response.body.id)
             .then((response) => {
@@ -91,12 +90,4 @@ describe ('Shipping Zone', () => {
             })
         })        
     })
-
-    /* it('Listar Uma Shipping Zone - Aceitação', () => {
-        cy.getOneShippingZonesWooCommerce()
-        .should((listarShippingZonesResponse) => {
-            expect(listarShippingZonesResponse.status).equals(200)
-            expect(listarShippingZonesResponse.body.name).equals('Teste')
-        })
-    }) */
 })

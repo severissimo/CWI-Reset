@@ -1,6 +1,6 @@
 /// <reference types="cypress">
 import token from '../../fixtures/token.json'
-import shippingZoneObject from '../../fixtures/shippingZoneObject.json'
+import shippingZoneFixture from '../../fixtures/shippingZoneFixture.json'
 
 Cypress.Commands.add('getAllShippingZonesWooCommerce', () => {
     cy.request({
@@ -36,7 +36,7 @@ Cypress.Commands.add('updateShippingZoneWooCommerce', (id, name) => {
 Cypress.Commands.add('deleteShippingZoneWooCommerce', (id) => {
     cy.request({
         method: 'DELETE',
-        url: Cypress.config('baseUrl') + '/shipping/zones/' + id + shippingZoneObject.force,        
+        url: Cypress.config('baseUrl') + '/shipping/zones/' + id + shippingZoneFixture.force,        
         headers: { Authorization: token.token }
     })
 })
