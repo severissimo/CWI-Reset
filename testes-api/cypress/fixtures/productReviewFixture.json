@@ -1,0 +1,20 @@
+{
+    "url": "/products/reviews/",
+    "token": "Basic Y2tfOWE2ZDlhZDMyN2MzN2E4MDcxODgzZDJlMThkMmMyYTIyOGYyOTlkYjpjc18xMDY4MDFlZWM4YmQwMDcxZTgwNjQ0NTdhZGY5OTUzNTIyMThhOTE3",
+    "statusok": 200,
+    "statusposted": 201,
+    "force": "?force=true",
+    "product_id": 22,
+    "review": "Review",
+    "reviewer": "QA",
+    "reviewer_email": "qa@teste.com",
+    "rating": 5,
+
+    "reviewEditado": {
+        "product_id": 22,
+        "review": "Review Editado",
+        "reviewer": "QA",
+        "reviewer_email": "qa@teste.com",
+        "rating": 1
+    }
+}

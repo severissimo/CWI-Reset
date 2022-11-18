@@ -1,2 +1,3 @@
-import '../support/wooCommerce/categories'
-import '../support/wooCommerce/shippingZone'
+import '../support/wooCommerce/categories.commands'
+import '../support/wooCommerce/shippingZone.commands'
+import '../support/wooCommerce/productReview.commands'
