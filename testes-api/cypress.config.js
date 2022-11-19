@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
 const preprocessor = require("@badeball/cypress-cucumber-preprocessor");
 const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
@@ -20,8 +21,16 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
   e2e: {
+    baseUrl: 'https://cena.reset.cwi.com.br/index.php/wp-json/wc/v3',
     specPattern: ['cypress/api/**/*.cy.js', 'cypress/api/**/*.feature'],
-    setupNodeEvents,
-    baseUrl: 'https://cena.reset.cwi.com.br/index.php/wp-json/wc/v3'
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', webpackPreprocessor);
+      allureWriter(on, config);
+      return config;
+    },
+    env: {
+      allureReuseAfterSpec: true
+    },
+    video: false
   },
 });
