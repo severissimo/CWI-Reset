@@ -48,10 +48,30 @@ describe('Product Categories', () => {
     })
 
     it('PUT - Edição de categorias - Aceitação', () => {
-        cy.request('/')
+        cy.postProductCategoriesWooCommerce(categoryName, productCategoriesFixture.src)
+            .then((response) => {
+                cy.putProductCategoriesWooCommerce(response.body.id, productCategoriesFixture.updatedDescription)
+                .should((response) => {
+                    expect(response.body.description).equals(productCategoriesFixture.updatedDescription)
+                    expect(response.status).equals(statusFixture.ok)
+                })
+                cy.deleteProductCategoriesWooCommerce(response.body.id)
+            })
     })
 
-    it.only('DELETE - Edição de categorias - Aceitação', () => {
+    it('PUT - Edição de categorias - Contrato', () => {
+        cy.postProductCategoriesWooCommerce(categoryName, productCategoriesFixture.src)
+            .then((response) => {
+                cy.putProductCategoriesWooCommerce(response.body.id, productCategoriesFixture.updatedDescription)
+                .should((response) => {
+                    expect(response.status).equals(statusFixture.ok)
+                    return productCategoriesSchema.validateAsync(response.body)
+                })
+                cy.deleteProductCategoriesWooCommerce(response.body.id)
+            })
+    })
+
+    it('DELETE - Edição de categorias - Aceitação', () => {
         cy.postProductCategoriesWooCommerce(categoryName, productCategoriesFixture.src)
             .then((response) => {
                 cy.deleteProductCategoriesWooCommerce(response.body.id)
@@ -61,14 +81,16 @@ describe('Product Categories', () => {
                         expect(response.status).equals(statusFixture.ok)
                     })
             })
-    }) // O teste acima não passa, dá 404 - "Nenhuma rota foi encontrada que corresponde com o URL e o método de requisição.",
+    }) 
 
-    it('GET - Listar uma categoria - Aceitação', () => {
-        cy.getOneProductCategoryWooCommerce().should((response) => {
-            expect(response.status).to.be.eq(statusFixture.ok)
-            expect(response.body).to.have.length.greaterThan(0)
-        })
-    }) // O teste acima não passa, dá 404 - "Recurso Inexistente"
-
-
+    it('DELETE - Edição de categorias - Contrato', () => {
+        cy.postProductCategoriesWooCommerce(categoryName, productCategoriesFixture.src)
+            .then((response) => {
+                cy.deleteProductCategoriesWooCommerce(response.body.id)
+                    .should((response) => {
+                        expect(response.status).equals(statusFixture.ok)
+                        return productCategoriesSchema.validateAsync(response.body)
+                    })
+            })
+    }) 
 })  

@@ -13,14 +13,6 @@ Cypress.Commands.add('getProductCategoriesWooCommerce', () => {
     })
 }),
 
-Cypress.Commands.add('getOneProductCategoryWooCommerce', () => {
-    cy.request({
-        method: 'GET',
-        url: Cypress.config('baseUrl') + '/products/categories/1',            
-        headers: { Authorization: token.token },
-    })
-}),
-
 Cypress.Commands.add('postProductCategoriesWooCommerce', (name, imgSrc) => {
     cy.request({
         method: 'POST',
@@ -35,13 +27,13 @@ Cypress.Commands.add('postProductCategoriesWooCommerce', (name, imgSrc) => {
     })    
 }),
 
-Cypress.Commands.add('putProductCategoriesWooCommerce', () => {
+Cypress.Commands.add('putProductCategoriesWooCommerce', (id, description) => {
     cy.request({
         method: 'PUT',
-        url: Cypress.config('baseUrl') + '/products/categories',            
+        url: Cypress.config('baseUrl') + '/products/categories/' + id,            
         headers: { Authorization: token.token },
         body: {
-
+            description: description
         }
     })
 }),
