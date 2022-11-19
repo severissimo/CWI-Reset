@@ -1,7 +1,8 @@
 /// <reference types="cypress">
 import token from '../../fixtures/token.json'
-import categoryObject from '../../fixtures/categoryObject.json'
+import productCategoriesFixture from '../../fixtures/productCategoriesFixture.json'
 import { faker } from '@faker-js/faker'
+import productCategoriesSchema from '../../contratos/categories'
 
 
 Cypress.Commands.add('getProductCategoriesWooCommerce', () => {
@@ -48,7 +49,7 @@ Cypress.Commands.add('putProductCategoriesWooCommerce', () => {
 Cypress.Commands.add('deleteProductCategoriesWooCommerce', (id) => {
     cy.request({
         method: 'DELETE',
-        url: Cypress.config('baseUrl') + '/products/categories' + id + categoryObject.force,            
+        url: Cypress.config('baseUrl') + '/products/categories/' + id + productCategoriesFixture.force,            
         headers: { Authorization: token.token },
         body: {
 
@@ -67,7 +68,7 @@ Cypress.Commands.add('testIfPostProductCategoriesWooCommerce', (name, imgSrc) =>
             body: {
                 name: categoryName,
                 image: {
-                    src: categoryObject.src
+                    src: productCategoriesFixture.src
                 }
     
             }
@@ -96,3 +97,4 @@ Cypress.Commands.add('testIfPostProductCategoriesWooCommerce', (name, imgSrc) =>
     }
     
 })
+
