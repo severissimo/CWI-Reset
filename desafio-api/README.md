@@ -4,16 +4,14 @@
 2. Fazer Testes de Aceitação
 3. Fazer Testes de Contrato 
 
-  
 
 ## Teste Exploratório
 - Objetivos:
-    1. Baixar Dependencias
+    1. Baixar Dependencias :heavy_check_mark:
     2. Criar Spec, Fixtures, Contratos
     3. Criar e Importar arquivo de Comandos
 
   
-
 ## Testes de Aceitação
 - Objetivos:
     1. Criar Suite de Testes
@@ -24,7 +22,6 @@
     5. Implementar Testde de Aceitação do método PUT
 
   
-
 ## Implementar Cenário
 - Objetivos:
     1. Implementar Schema de Contrato
