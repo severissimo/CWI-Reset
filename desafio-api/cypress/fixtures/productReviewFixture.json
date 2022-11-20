@@ -1,4 +1,10 @@
 {
   "url": "/products/reviews/",
-  "force": "?force=true"
+  "force": "?force=true",
+  "product_id": 22,
+  "review": "Review",
+  "reviewer": "QA",
+  "reviewer_email": "qa@teste.com",
+  "rating": 5,
+  "deleted": true
 }
