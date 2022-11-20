@@ -27,7 +27,7 @@
 - Objetivos:
     1. Implementar Schema de Contrato :heavy_check_mark:
     2. Implementar Teste de Contrato do método GET :heavy_check_mark:
-    3. Implementar Teste de Contrato do método DELETE
-        1. Criar Schema para DELETE
+    3. Implementar Teste de Contrato do método DELETE :heavy_check_mark:
+        1. Criar Schema para DELETE :heavy_check_mark:
     4. Implementar Testde de Contrato do método POST:heavy_check_mark:
     5. Implementar Testde de Contrato do método PUT :heavy_check_mark:

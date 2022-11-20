@@ -27,7 +27,7 @@ describe('API - Product Reviews', () => {
       })
   })
 
-  it.only('POST: Criar um Product Review - Aceitação', () => {
+  it('POST: Criar um Product Review - Aceitação', () => {
     let newReview = faker.datatype.uuid()
     let newEmail = faker.internet.email('QA', 'Agil', 'test.dev')
     cy.postProductReviewsWooCommerce(
@@ -49,7 +49,7 @@ describe('API - Product Reviews', () => {
     })
   })
   
-  it.only('POST: Criar um Product Review - Contrato', () => {
+  it('POST: Criar um Product Review - Contrato', () => {
     let newReview = faker.datatype.uuid()
     let newEmail = faker.internet.email('QA', 'Agil', 'test.dev')
     cy.postProductReviewsWooCommerce(
@@ -68,6 +68,7 @@ describe('API - Product Reviews', () => {
   })
 
   it('PUT: Update um Product Review - Aceitação', () => {
+    let newReview = faker.datatype.uuid()
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -97,6 +98,7 @@ describe('API - Product Reviews', () => {
   })
 
   it('PUT: Update um Product Review - Aceitação', () => {
+    let newReview = faker.datatype.uuid()
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -122,6 +124,7 @@ describe('API - Product Reviews', () => {
   })
 
   it('DELETE: Apagar um Product Review - Aceitação', () => {
+    let newReview = faker.datatype.uuid()
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -144,6 +147,7 @@ describe('API - Product Reviews', () => {
   })
   
   it('DELETE: Apagar um Product Review - Contrato', () => {
+    let newReview = faker.datatype.uuid()
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
