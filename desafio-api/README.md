@@ -13,13 +13,13 @@
 3. Fazer Testes de Contrato 
 
 
-## Teste Exploratório
+### Criar Ambiente de Testes
 1. Baixar Dependencias :heavy_check_mark:
 2. Criar Spec, Fixtures, Contratos :heavy_check_mark:
 3. Criar e Importar arquivo de Comandos:heavy_check_mark:
 
   
-## Testes de Aceitação
+### Testes de Aceitação
 1. Criar Suite de Testes :heavy_check_mark:
 2. Implementar Teste de Aceitação do método GET :heavy_check_mark:
     1. Copiar Objeto de Aceitação da Response :heavy_check_mark:
@@ -29,7 +29,7 @@
 5. Implementar Testde de Aceitação do método PUT :heavy_check_mark:
 
   
-## Implementar Cenário
+### Testes de Contrato 
 1. Implementar Schema de Contrato :heavy_check_mark:
 2. Implementar Teste de Contrato do método GET :heavy_check_mark:
 3. Implementar Teste de Contrato do método DELETE :heavy_check_mark:
