@@ -8,8 +8,7 @@ import deletedProductReviewSchema from '../../contratos/deletedProductReview.con
 import { faker } from '@faker-js/faker'
 
 describe('API - Product Reviews', () => {
-  const newReview = faker.datatype.uuid()
-
+ 
   it('GET: Listar todos os Product Reviews - Aceitação', () => {
     cy.getAllProductReviewsWooCommerce(token.token)
       .should((response) => {
@@ -28,33 +27,37 @@ describe('API - Product Reviews', () => {
       })
   })
 
-  it('POST: Criar um Product Review - Aceitação', () => {
+  it.only('POST: Criar um Product Review - Aceitação', () => {
+    let newReview = faker.datatype.uuid()
+    let newEmail = faker.internet.email('QA', 'Agil', 'test.dev')
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
       newReview,
       productReviewFixture.reviewer,
-      productReviewFixture.reviewer_email,
+      newEmail,
       productReviewFixture.rating
     ).should((response) => {
       expect(response.status).equals(statusFixture.created)
       expect(response.body.product_id).equals(productReviewFixture.product_id)
       expect(response.body.review).equals(newReview)
       expect(response.body.reviewer).equals(productReviewFixture.reviewer)
-      expect(response.body.reviewer_email).equals(productReviewFixture.reviewer_email)
+      expect(response.body.reviewer_email).equals(newEmail)
       expect(response.body.rating).equals(productReviewFixture.rating)
     }).then((response) => {
       cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
     })
   })
   
-  it('POST: Criar um Product Review - Contrato', () => {
+  it.only('POST: Criar um Product Review - Contrato', () => {
+    let newReview = faker.datatype.uuid()
+    let newEmail = faker.internet.email('QA', 'Agil', 'test.dev')
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
       newReview,
       productReviewFixture.reviewer,
-      productReviewFixture.reviewer_email,
+      newEmail,
       productReviewFixture.rating
     ).should((response) => {
       expect(response.status).equals(statusFixture.created)
@@ -140,7 +143,7 @@ describe('API - Product Reviews', () => {
     })
   })
   
-  it.only('DELETE: Apagar um Product Review - Contrato', () => {
+  it('DELETE: Apagar um Product Review - Contrato', () => {
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
