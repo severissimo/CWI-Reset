@@ -2,7 +2,7 @@
     "force": "?force=true",
     "code": "10off",
     "discount_type": "percent",
-    "amount": "10",
+    "amount": "10.00",
     "individual_use": true,
     "exclude_sale_items": true,
     "minimum_amount": "100.00"
