@@ -18,7 +18,7 @@ describe('API - Product Reviews', () => {
       })
   })
 
-  it('POST: Criar um Product Review - Aceitação', () => {
+  it.only('POST: Criar um Product Review - Aceitação', () => {
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -26,7 +26,14 @@ describe('API - Product Reviews', () => {
       productReviewFixture.reviewer,
       productReviewFixture.reviewer_email,
       productReviewFixture.rating
-    ).then((response) => {
+    ).should((response) => {
+      expect(response.status).equals(statusFixture.created)
+      expect(response.body.product_id).equals(productReviewFixture.product_id)
+      expect(response.body.review).equals(newReview)
+      expect(response.body.reviewer).equals(productReviewFixture.reviewer)
+      expect(response.body.reviewer_email).equals(productReviewFixture.reviewer_email)
+      expect(response.body.rating).equals(productReviewFixture.rating)
+    }).then((response) => {
       cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
     })
   })
@@ -35,7 +42,7 @@ describe('API - Product Reviews', () => {
     cy.visit('https://example.cypress.io')
   })
 
-  it.only('DELETE: Apagar um Product Review - Aceitação', () => {
+  it('DELETE: Apagar um Product Review - Aceitação', () => {
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
