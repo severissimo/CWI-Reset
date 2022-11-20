@@ -18,9 +18,9 @@
     2. Implementar Teste de Aceitação do método GET :heavy_check_mark:
 	    1. Copiar Objeto de Aceitação da Response :heavy_check_mark:
         2. Criar Schema de Contrato :heavy_check_mark:
-    3. Implementar Teste de Aceitação do método DELETE
-    4. Implementar Testde de Aceitação do método POST
-    5. Implementar Testde de Aceitação do método PUT
+    3. Implementar Teste de Aceitação do método DELETE :heavy_check_mark:
+    4. Implementar Testde de Aceitação do método POST :heavy_check_mark:
+    5. Implementar Testde de Aceitação do método PUT :heavy_check_mark:
 
   
 ## Implementar Cenário
