@@ -14,7 +14,7 @@ describe('Coupons', () => {
             })
     })
 
-    it.only('POST: Cadastrar um Coupom - Aceitação', () => {
+    it('POST: Cadastrar um Coupom - Aceitação', () => {
         cy.postCouponsWooCommerce(
             couponCode,
             couponsFixture.discount_type,
@@ -34,13 +34,31 @@ describe('Coupons', () => {
             cy.deleteCouponsWooCommerce(response.body.id)
         })
     })
-    
-    it('PUT: Editar um Coupom - Aceitação', () => {
-        cy.putCouponsWooCommerce()
-            .should((response) => {
-                expect(response.status).equals(statusFixture.ok)
-                //expect(response.body).to.be.eq(input)
-            })
+
+    it.only('PUT: Editar um Coupom - Aceitação', () => {
+        cy.postCouponsWooCommerce(
+            couponCode,
+            couponsFixture.discount_type,
+            couponsFixture.amount,
+            couponsFixture.individual_use,
+            couponsFixture.exclude_sale_items,
+            couponsFixture.minimum_amount
+        ).then((response) => {
+            cy.putCouponsWooCommerce(response.body.id, couponsFixture.updatedAmount)
+                .should((response) => {
+                    expect(response.status).equals(statusFixture.ok)
+                    expect(response.body.code).to.be.eq(couponCode)
+                    expect(response.body.discount_type).to.be.eq(couponsFixture.discount_type)
+                    expect(response.body.amount).to.be.eq(couponsFixture.updatedAmount)
+                    expect(response.body.individual_use).to.be.eq(couponsFixture.individual_use)
+                    expect(response.body.exclude_sale_items).to.be.eq(couponsFixture.exclude_sale_items)
+                    expect(response.body.minimum_amount).to.be.eq(couponsFixture.minimum_amount)
+                })
+        }).then((response) => {
+            cy.deleteCouponsWooCommerce(response.body.id)
+        })
+
+
     })
 
     it('DELETE: Listar todos os Coupons- Aceitação', () => {

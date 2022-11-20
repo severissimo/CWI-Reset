@@ -34,12 +34,14 @@ Cypress.Commands.add('postCouponsWooCommerce', (
     })
 })
 
-Cypress.Commands.add('putCouponsWooCommerce', () => {
+Cypress.Commands.add('putCouponsWooCommerce', (id, amount) => {
     cy.request({
         method: 'PUT',
-        url: Cypress.config('baseUrl') + '/coupons',
+        url: Cypress.config('baseUrl') + '/coupons/' + id,
         headers: { Authorization: token.token },
-        body: {}
+        body: {
+            amount: amount
+        }
     })
 })
 
