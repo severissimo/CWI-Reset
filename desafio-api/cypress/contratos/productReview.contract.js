@@ -1,5 +1,5 @@
 import Joi from "joi";
 
-const productReviewSchema = Joi.object({}).required()
+const productReviewSchema = Joi.object({})
 
 export default productReviewSchema;

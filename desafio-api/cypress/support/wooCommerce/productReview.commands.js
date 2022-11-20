@@ -4,7 +4,7 @@ import productReviewFixture from '../../fixtures/productReviewFixture.json'
 
 Cypress.Commands.add('getAllProductReviewsWooCommerce', (token) => {
     cy.request({
-        method: '',
+        method: 'GET',
         url: Cypress.config('baseUrl') + productReviewFixture.url,            
         headers: { Authorization: token }
     })
