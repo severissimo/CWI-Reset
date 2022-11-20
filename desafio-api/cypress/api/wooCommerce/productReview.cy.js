@@ -5,7 +5,6 @@ import token from '../../fixtures/token.json'
 import statusFixture from '../../fixtures/statusFixture.json'
 import productReviewSchema from '../../contratos/productReview.contract'
 import { faker } from '@faker-js/faker'
-import { exist } from 'joi'
 
 describe('API - Product Reviews', () => {
   const newReview = faker.datatype.uuid()
@@ -15,6 +14,16 @@ describe('API - Product Reviews', () => {
       .should((response) => {
         expect(response.status).equals(statusFixture.ok)
         expect(response.body).exist
+      })
+  })
+  
+  it.only('GET: Listar todos os Product Reviews - Contrato', () => {
+    cy.getAllProductReviewsWooCommerce(token.token)
+      .should((response) => {
+        expect(response.status).equals(statusFixture.ok)
+        for (let i = 0; i < response.body.length; i++){
+          cy.validarArrayResponse(productReviewSchema,response.body[i]);
+      }
       })
   })
 
@@ -33,6 +42,51 @@ describe('API - Product Reviews', () => {
       expect(response.body.reviewer).equals(productReviewFixture.reviewer)
       expect(response.body.reviewer_email).equals(productReviewFixture.reviewer_email)
       expect(response.body.rating).equals(productReviewFixture.rating)
+    }).then((response) => {
+      cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
+    })
+  })
+  
+  it.only('POST: Criar um Product Review - Contrato', () => {
+    cy.postProductReviewsWooCommerce(
+      token.token,
+      productReviewFixture.product_id,
+      newReview,
+      productReviewFixture.reviewer,
+      productReviewFixture.reviewer_email,
+      productReviewFixture.rating
+    ).should((response) => {
+      expect(response.status).equals(statusFixture.created)
+      return productReviewSchema.validateAsync(response.body)
+    }).then((response) => {
+      cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
+    })
+  })
+
+  it('PUT: Update um Product Review - Aceitação', () => {
+    cy.postProductReviewsWooCommerce(
+      token.token,
+      productReviewFixture.product_id,
+      newReview,
+      productReviewFixture.reviewer,
+      productReviewFixture.reviewer_email,
+      productReviewFixture.rating
+    ).then((response) => {
+      cy.putProductReviewsWooCommerce(
+        token.token,
+        response.body.id,
+        productReviewFixture.reviewEditado.review,
+        productReviewFixture.reviewEditado.reviewer,
+        productReviewFixture.reviewEditado.reviewer_email,
+        productReviewFixture.reviewEditado.rating
+      )
+    }).should((response) => {
+      expect(response.status).equals(statusFixture.ok)
+      expect(response.body.product_id).equals(productReviewFixture.product_id)
+      expect(response.body.review).equals(productReviewFixture.reviewEditado.review)
+      expect(response.body.reviewer).equals(productReviewFixture.reviewEditado.reviewer)
+      expect(response.body.reviewer_email).equals(productReviewFixture.reviewEditado.reviewer_email)
+      expect(response.body.rating).equals(productReviewFixture.reviewEditado.rating)
     }).then((response) => {
       cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
     })
@@ -57,11 +111,7 @@ describe('API - Product Reviews', () => {
       )
     }).should((response) => {
       expect(response.status).equals(statusFixture.ok)
-      expect(response.body.product_id).equals(productReviewFixture.product_id)
-      expect(response.body.review).equals(productReviewFixture.reviewEditado.review)
-      expect(response.body.reviewer).equals(productReviewFixture.reviewEditado.reviewer)
-      expect(response.body.reviewer_email).equals(productReviewFixture.reviewEditado.reviewer_email)
-      expect(response.body.rating).equals(productReviewFixture.reviewEditado.rating)
+      return productReviewSchema.validateAsync(response.body)
     }).then((response) => {
       cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
     })

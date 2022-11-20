@@ -25,8 +25,9 @@
   
 ## Implementar Cenário
 - Objetivos:
-    1. Implementar Schema de Contrato
-    2. Implementar Teste de Contrato do método GET
+    1. Implementar Schema de Contrato :heavy_check_mark:
+    2. Implementar Teste de Contrato do método GET :heavy_check_mark:
     3. Implementar Teste de Contrato do método DELETE
-    4. Implementar Testde de Contrato do método POST
-    5. Implementar Testde de Contrato do método PUT
+        1. Criar Schema para DELETE
+    4. Implementar Testde de Contrato do método POST:heavy_check_mark:
+    5. Implementar Testde de Contrato do método PUT :heavy_check_mark:
