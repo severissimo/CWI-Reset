@@ -17,7 +17,7 @@ Cypress.Commands.add('postProductReviewsWooCommerce', (
     reviewer,
     reviewer_email,
     rating
-    ) => {
+) => {
     cy.request({
         method: 'POST',
         url: Cypress.config('baseUrl') + productReviewFixture.url,
@@ -32,12 +32,24 @@ Cypress.Commands.add('postProductReviewsWooCommerce', (
     })
 })
 
-Cypress.Commands.add('putProductReviewsWooCommerce', (token) => {
+Cypress.Commands.add('putProductReviewsWooCommerce', (
+    token,
+    id,
+    review,
+    reviewer,
+    reviewer_email,
+    rating
+    ) => {
     cy.request({
-        method: '',
-        url: Cypress.config('baseUrl') + productReviewFixture.url,
+        method: 'PUT',
+        url: Cypress.config('baseUrl') + productReviewFixture.url + id,
         headers: { Authorization: token },
-        body: {}
+        body: {
+            review: review,
+            reviewer: reviewer,
+            reviewer_email: reviewer_email,
+            rating: rating
+        }
     })
 })
 

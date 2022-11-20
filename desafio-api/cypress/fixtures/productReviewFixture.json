@@ -5,6 +5,12 @@
   "review": "Review",
   "reviewer": "QA",
   "reviewer_email": "qa@teste.com",
-  "rating": 5,
-  "deleted": true
+  "rating": 3,
+  "deleted": true,
+  "reviewEditado": {
+    "review": "Review Editado",
+    "reviewer": "QA Ágil",
+    "reviewer_email": "qaagil@teste.com",
+    "rating": 1
+  }
 }
