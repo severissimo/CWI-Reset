@@ -1,5 +1,6 @@
 /// <reference types="cypress">
 import couponsFixture from '../../fixtures/couponsFixture.json'
+import couponsSchema from '../../contratos/coupons.contract'
 import statusFixture from '../../fixtures/statusFixture.json'
 import { faker } from '@faker-js/faker'
 
@@ -11,6 +12,16 @@ describe('Coupons', () => {
             .should((response) => {
                 expect(response.status).equals(statusFixture.ok)
                 expect(response.body.length).greaterThan(0)
+            })
+    })
+
+    it.only('GET: Listar todos os Coupons - Aceitação', () => {
+        cy.getAllCouponsWooCommerce()
+            .should((response) => {
+                expect(response.status).equals(statusFixture.ok)
+                for (let i = 0; i < response.body.length; i++){
+                    cy.validarArrayResponse(couponsSchema,response.body[i]);
+                }
             })
     })
 
@@ -35,7 +46,7 @@ describe('Coupons', () => {
         })
     })
 
-    it.only('PUT: Editar um Coupom - Aceitação', () => {
+    it('PUT: Editar um Coupom - Aceitação', () => {
         cy.postCouponsWooCommerce(
             couponCode,
             couponsFixture.discount_type,
