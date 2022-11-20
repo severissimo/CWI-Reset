@@ -9,7 +9,7 @@
 - Objetivos:
     1. Baixar Dependencias :heavy_check_mark:
     2. Criar Spec, Fixtures, Contratos :heavy_check_mark:
-    3. Criar e Importar arquivo de Comandos
+    3. Criar e Importar arquivo de Comandos:heavy_check_mark:
 
   
 ## Testes de Aceitação
