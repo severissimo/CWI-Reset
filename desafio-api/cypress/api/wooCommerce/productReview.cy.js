@@ -4,6 +4,7 @@ import productReviewFixture from '../../fixtures/productReviewFixture.json'
 import token from '../../fixtures/token.json'
 import statusFixture from '../../fixtures/statusFixture.json'
 import productReviewSchema from '../../contratos/productReview.contract'
+import deletedProductReviewSchema from '../../contratos/deletedProductReview.contract'
 import { faker } from '@faker-js/faker'
 
 describe('API - Product Reviews', () => {
@@ -17,7 +18,7 @@ describe('API - Product Reviews', () => {
       })
   })
   
-  it.only('GET: Listar todos os Product Reviews - Contrato', () => {
+  it('GET: Listar todos os Product Reviews - Contrato', () => {
     cy.getAllProductReviewsWooCommerce(token.token)
       .should((response) => {
         expect(response.status).equals(statusFixture.ok)
@@ -47,7 +48,7 @@ describe('API - Product Reviews', () => {
     })
   })
   
-  it.only('POST: Criar um Product Review - Contrato', () => {
+  it('POST: Criar um Product Review - Contrato', () => {
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -92,7 +93,7 @@ describe('API - Product Reviews', () => {
     })
   })
 
-  it.only('PUT: Update um Product Review - Aceitação', () => {
+  it('PUT: Update um Product Review - Aceitação', () => {
     cy.postProductReviewsWooCommerce(
       token.token,
       productReviewFixture.product_id,
@@ -135,6 +136,23 @@ describe('API - Product Reviews', () => {
           expect(response.body.previous.reviewer).equals(productReviewFixture.reviewer)
           expect(response.body.previous.reviewer_email).equals(productReviewFixture.reviewer_email)
           expect(response.body.previous.rating).equals(productReviewFixture.rating)
+        })
+    })
+  })
+  
+  it.only('DELETE: Apagar um Product Review - Contrato', () => {
+    cy.postProductReviewsWooCommerce(
+      token.token,
+      productReviewFixture.product_id,
+      newReview,
+      productReviewFixture.reviewer,
+      productReviewFixture.reviewer_email,
+      productReviewFixture.rating
+    ).then((response) => {
+      cy.deleteProductReviewsWooCommerce(token.token, response.body.id)
+        .should((response) => {
+          expect(response.status).equals(statusFixture.ok)
+          return deletedProductReviewSchema.validateAsync(response.body)
         })
     })
   })
