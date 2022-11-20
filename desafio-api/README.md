@@ -8,7 +8,7 @@
 ## Teste Exploratório
 - Objetivos:
     1. Baixar Dependencias :heavy_check_mark:
-    2. Criar Spec, Fixtures, Contratos
+    2. Criar Spec, Fixtures, Contratos :heavy_check_mark:
     3. Criar e Importar arquivo de Comandos
 
   
