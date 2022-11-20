@@ -10,3 +10,30 @@ Cypress.Commands.add('getAllCouponsWooCommerce', () => {
         headers: { Authorization: token.token }
     })
 })
+
+Cypress.Commands.add('postCouponsWooCommerce', () => {
+    cy.request({
+        method: 'POST',
+        url: Cypress.config('baseUrl') + '/coupons',
+        headers: { Authorization: token.token },
+        body: {        }
+    })
+})
+
+Cypress.Commands.add('putCouponsWooCommerce', () => {
+    cy.request({
+        method: 'PUT',
+        url: Cypress.config('baseUrl') + '/coupons',
+        headers: { Authorization: token.token },
+        body: {        }
+    })
+})
+
+Cypress.Commands.add('postCouponsWooCommerce', () => {
+    cy.request({
+        method: 'DELETE',
+        url: Cypress.config('baseUrl') + '/coupons',
+        headers: { Authorization: token.token },
+        body: {        }
+    })
+})
