@@ -46,7 +46,7 @@ describe('Coupons', () => {
         })
     })
     
-    it.only('POST: Cadastrar um Coupom - Contrato', () => {
+    it('POST: Cadastrar um Coupom - Contrato', () => {
         cy.postCouponsWooCommerce(
             couponCode,
             couponsFixture.discount_type,
@@ -84,8 +84,25 @@ describe('Coupons', () => {
         }).then((response) => {
             cy.deleteCouponsWooCommerce(response.body.id)
         })
-
-
+    })
+    
+    it.only('PUT: Editar um Coupom - Contrato', () => {
+        cy.postCouponsWooCommerce(
+            couponCode,
+            couponsFixture.discount_type,
+            couponsFixture.amount,
+            couponsFixture.individual_use,
+            couponsFixture.exclude_sale_items,
+            couponsFixture.minimum_amount
+        ).then((response) => {
+            cy.putCouponsWooCommerce(response.body.id, couponsFixture.updatedAmount)
+                .should((response) => {
+                    expect(response.status).equals(statusFixture.ok)
+                    return couponsSchema.validateAsync(response.body)
+                })
+        }).then((response) => {
+            cy.deleteCouponsWooCommerce(response.body.id)
+        })
     })
 
     it('DELETE: Listar todos os Coupons- Aceitação', () => {
